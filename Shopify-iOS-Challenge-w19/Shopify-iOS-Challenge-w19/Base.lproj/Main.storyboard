@@ -42,7 +42,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Product Tags" id="232-lB-D17">
+                    <navigationItem key="navigationItem" title="Product Tags" leftItemsSupplementBackButton="YES" id="232-lB-D17">
                         <barButtonItem key="leftBarButtonItem" enabled="NO" title="Item" image="shopify_glyph" springLoaded="YES" style="plain" id="oCL-NL-scE"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -86,12 +86,18 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5KX-br-PTp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="NDO-wr-WKa"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6KW-wc-v4X">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="6KW-wc-v4X">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.58431372550000005" green="0.74901960779999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.58431372550000005" green="0.74901960779999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.12549019610000001" green="0.18039215689999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.58431372550000005" green="0.74901960779999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.12549019607843137" green="0.1803921568627451" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -104,6 +110,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="shopify_glyph" width="300" height="341"/>
+        <image name="shopify_glyph" width="24" height="24"/>
     </resources>
 </document>

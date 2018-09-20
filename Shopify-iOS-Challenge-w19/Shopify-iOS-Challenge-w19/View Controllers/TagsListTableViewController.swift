@@ -15,10 +15,19 @@ class TagsListTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.navigationItem.title = "Product Tags"
+//        self.navigationController?.viewControllers.first?.title = "Product Tags"
+        self.title = "Product Tags"
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.viewControllers.first?.title = nil
+        self.title = nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearsSelectionOnViewWillAppear = true
         ShopifyClient.sharedInstance.getJSONDataFromShopify() { products in
             self.tagsList = Array(products.keys)
             DispatchQueue.main.async {

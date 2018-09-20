@@ -21,12 +21,13 @@ class ProductsListTableViewController: UITableViewController {
         self.tag = tag
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationController?.navigationItem.title = tag
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = tag
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.allowsSelection = false
         tableView.register(UINib(nibName: "ProductsListTableViewCell", bundle: nil), forCellReuseIdentifier: "ProductsListTableViewCell")
         if (!self.products.isEmpty) {
             self.tableView.reloadData()

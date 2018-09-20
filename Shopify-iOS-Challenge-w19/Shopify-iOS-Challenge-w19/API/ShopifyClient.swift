@@ -39,10 +39,8 @@ public class ShopifyClient {
                             self.productsCache[tag] = [Product]()
                         }
                         self.productsCache[tag]?.append(product)
-                        print("success \(product)")
                     }
                 }
-                print("Success \(self.productsCache)")
                 completion(self.productsCache)
             } catch {
                 print("Failed")
