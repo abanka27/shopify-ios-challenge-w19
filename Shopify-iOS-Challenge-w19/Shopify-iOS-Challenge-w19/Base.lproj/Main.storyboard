@@ -41,7 +41,11 @@
                             <outlet property="delegate" destination="aDw-2i-NQK" id="t09-Bu-a3c"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tags" largeTitleDisplayMode="always" id="232-lB-D17"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Product Tags" id="232-lB-D17">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Item" image="shopify_glyph" springLoaded="YES" style="plain" id="oCL-NL-scE"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYt-fo-pLg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -50,7 +54,7 @@
         <!--Products-->
         <scene sceneID="Tgt-iY-D8D">
             <objects>
-                <tableViewController storyboardIdentifier="ProductsListTableViewController" title="Products" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FPZ-rt-xQA" customClass="ProductsListTableViewController" customModule="Shopify_iOS_Challenge_w19" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ProductsListTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FPZ-rt-xQA" customClass="ProductsListTableViewController" customModule="Shopify_iOS_Challenge_w19" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="M9R-8e-Pc4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,6 +89,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6KW-wc-v4X">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.58431372550000005" green="0.74901960779999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.58431372550000005" green="0.74901960779999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -96,4 +103,7 @@
             <point key="canvasLocation" x="-303.19999999999999" y="-1061.0194902548726"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="shopify_glyph" width="300" height="341"/>
+    </resources>
 </document>

@@ -12,6 +12,11 @@ class TagsListTableViewController: UITableViewController {
     
     // MARK: - Properties
     private var tagsList = [String]()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.navigationItem.title = "Product Tags"
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         ShopifyClient.sharedInstance.getJSONDataFromShopify() { products in
@@ -55,6 +60,7 @@ class TagsListTableViewController: UITableViewController {
         guard let cell = tableView.cellForRow(at: indexPath), let tag = cell.textLabel?.text else {return}
         let nextViewController = ProductsListTableViewController.getInstance()
         nextViewController.setProducts(ShopifyClient.sharedInstance.getProductsCache()[tag]!)
+        nextViewController.setTag(to: tag)
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
 }

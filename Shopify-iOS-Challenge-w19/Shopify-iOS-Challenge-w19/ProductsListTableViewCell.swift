@@ -24,20 +24,23 @@ class ProductsListTableViewCell: UITableViewCell {
             }
             inventory.text = "\(totalInventory)"
             variantsAvailable.text = "\(product.variants.count) Variants Available"
-
+            if let image = ShopifyClient.sharedInstance.getImageCache()[product.id] {
+                productImage.image = image
+            }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        if let product = product {
-        }
+        productImage.layer.cornerRadius = productImage.bounds.size.width * 0.5
+        productImage.clipsToBounds = true
+        productImage.layer.borderWidth = 1
     }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     

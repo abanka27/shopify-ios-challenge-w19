@@ -12,11 +12,19 @@ class ProductsListTableViewController: UITableViewController {
     
     // MARK: - Properties
     private var products = [Product]()
-    
+    private var tag: String!
     public func setProducts(_ products: [Product]) {
         self.products = products
     }
     
+    public func setTag(to tag: String) {
+        self.tag = tag
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.navigationItem.title = tag
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ProductsListTableViewCell", bundle: nil), forCellReuseIdentifier: "ProductsListTableViewCell")
