@@ -9,17 +9,29 @@
 import Foundation
 import UIKit
 
-public class ShopifyClient {
-    public static let sharedInstance = ShopifyClient()
-    private var tagsCache = [String: [Int]]()
-    private var productsCache = [Int: Product]()
+typealias TagCache = [String: [Int]]
+typealias ProductCache = [Int: Product]
+
+class ShopifyClient {
+    // MARK: - Properties
+    
+    static let sharedInstance = ShopifyClient()
+    private var tagsCache = TagCache()
+    private var productsCache = ProductCache()
     private var imageCache = [Int: UIImage]()
     private var initialData: Bool = true
+    private var apiURL: URL!
     
-    public func getProducts(for tag: String) -> [Product] {
+    private init() {
+        apiURL = URL(string: "https://shopicruit.myshopify.com/admin/products.json?access_token=c32313df0d0ef512ca64d5b336a0d7c6&page=1")!
+    }
+    
+    // MARK: - Getter Methods
+    
+    public func getProducts(for tag: String) -> [Product]{
         var productsArray = [Product]()
         if let productIds = self.tagsCache[tag] {
-            productIds.forEach({productsArray.append(productsCache[$0]!)})
+            productIds.forEach({productsArray.append(self.productsCache[$0]!)})
         }
         return productsArray
     }
@@ -28,23 +40,36 @@ public class ShopifyClient {
         return imageCache
     }
     
-    public func getDataFromShopify(onCompletion completion: @escaping ([String: [Int]])->()) {
-        guard tagsCache.isEmpty || initialData else { return completion(tagsCache) }
-        let url = URL(string: "https://shopicruit.myshopify.com/admin/products.json?page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6")!
-        let session = URLSession(configuration: .ephemeral)
-        let task = session.dataTask(with: url) {(data, response, error) in
+    // MARK: - Common Methods
+    
+    private func getDataFromURL(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        let config = URLSessionConfiguration.ephemeral
+        config.waitsForConnectivity = true
+        let session = URLSession(configuration: config)
+        session.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    // MARK: - Data Downloading Methods
+    
+    private func downloadImage(from url: URL,for productId: Int) {
+        getDataFromURL(from: url) { (data, response, error) in
             guard let data = data, error == nil else {return}
+            DispatchQueue.main.async {
+                // Store UIImage in imageCache
+                self.imageCache[productId] = UIImage(data: data)
+            }
+        }
+    }
+    
+    public func downloadProductsListFromShopify(completion: @escaping  (TagCache?, Error?)->()) {
+        guard tagsCache.isEmpty || initialData else { return completion(tagsCache, nil) }
+        getDataFromURL(from: apiURL) { data, response, error in
+            guard let data = data, error == nil else { return completion(nil, error) }
             do {
                 let products = try JSONDecoder().decode(Products.self, from: data)
                 products.products.forEach(){ (product) in
-                    // Append _small to image name to obtain a 100x100px image for memory management
-                    var imageURL = URL(string: product.image.src)!
-                    var newLastComponent = imageURL.lastPathComponent.split(separator: ".")[0].description
-                    newLastComponent.append(contentsOf: "_small.png")
-                    imageURL.deleteLastPathComponent()
-                    imageURL.appendPathComponent(newLastComponent)
-                    print("\(imageURL)")
-                    self.downloadImage(from: imageURL, id: product.id)
+                    // Download sized-down image
+                    self.downloadImage(from: product.getSmallImageURL(), for: product.id)
                     // Store product in dictionary with id as key
                     self.productsCache[product.id] = product
                     product.tags.values.forEach(){ tag in
@@ -56,25 +81,9 @@ public class ShopifyClient {
                         self.tagsCache[tag]?.append(product.id)
                     }
                 }
-                completion(self.tagsCache)
+                completion(self.tagsCache, nil)
             } catch {
-                print("Failed")
-                return
-            }
-        }
-        task.resume()
-    }
-    
-    private func getImageData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    public func downloadImage(from url: URL, id: Int) {
-        getImageData(from: url) { (data, response, error) in
-            guard let data = data, error == nil else {return}
-            DispatchQueue.main.async {
-                // Store UIImage in imageCache
-                self.imageCache[id] = UIImage(data: data)
+                return completion(nil, error)
             }
         }
     }

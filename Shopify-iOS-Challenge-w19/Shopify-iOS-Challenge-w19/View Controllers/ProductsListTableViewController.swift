@@ -11,8 +11,11 @@ import UIKit
 class ProductsListTableViewController: UITableViewController {
     
     // MARK: - Properties
+    
     private var products = [Product]()
     private var tag: String!
+    
+    // MARK: - Setters
     public func setProducts(_ products: [Product]) {
         self.products = products
     }
@@ -20,6 +23,8 @@ class ProductsListTableViewController: UITableViewController {
     public func setTag(to tag: String) {
         self.tag = tag
     }
+    
+    // MARK: - Life Cycle Methods
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,6 +66,8 @@ class ProductsListTableViewController: UITableViewController {
         cell.product = products[indexPath.row]
         return cell
     }
+    
+    // MARK: - Static Methods
     
     public static func getInstance() -> ProductsListTableViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

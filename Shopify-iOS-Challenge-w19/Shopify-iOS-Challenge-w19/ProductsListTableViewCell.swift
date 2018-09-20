@@ -10,6 +10,8 @@ import UIKit
 
 class ProductsListTableViewCell: UITableViewCell {
 
+    // MARK: - Properties
+    
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var inventory: UILabel!
@@ -28,18 +30,13 @@ class ProductsListTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: - Initializers
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        // Round the image and add black border to it
         productImage.layer.cornerRadius = productImage.bounds.size.width * 0.5
         productImage.clipsToBounds = true
         productImage.layer.borderWidth = 1
     }
-    
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-    
 }

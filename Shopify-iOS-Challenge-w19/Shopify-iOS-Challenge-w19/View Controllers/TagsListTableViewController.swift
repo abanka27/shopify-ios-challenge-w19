@@ -13,6 +13,8 @@ class TagsListTableViewController: UITableViewController {
     // MARK: - Properties
     private var tagsList = [String]()
     
+    // MARK: - Life Cycle Methods
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.title = "Product Tags"
@@ -27,10 +29,14 @@ class TagsListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         clearsSelectionOnViewWillAppear = true
-        ShopifyClient.sharedInstance.getDataFromShopify() { products in
-            self.tagsList = Array(products.keys)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        ShopifyClient.sharedInstance.downloadProductsListFromShopify() { products, error in
+            if let products = products, error == nil {
+                self.tagsList = Array(products.keys)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } else if let error = error {
+                fatalError(error.localizedDescription)
             }
         }
     }
@@ -52,7 +58,7 @@ class TagsListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "TagCell"
-         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) 
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) 
         cell.textLabel?.text = tagsList[indexPath.row]
         return cell
     }
