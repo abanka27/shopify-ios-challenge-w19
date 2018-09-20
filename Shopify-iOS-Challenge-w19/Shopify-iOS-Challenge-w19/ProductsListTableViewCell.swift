@@ -13,7 +13,6 @@ class ProductsListTableViewCell: UITableViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var inventory: UILabel!
-//    @IBOutlet weak var variantsAvailable: UILabel!
     
     var product: Product! {
         didSet {
@@ -23,7 +22,6 @@ class ProductsListTableViewCell: UITableViewCell {
                 totalInventory = totalInventory + $0.inventoryQuantity
             }
             inventory.text = "\(totalInventory)"
-//            variantsAvailable.text = "\(product.variants.count) Variants Available"
             if let image = ShopifyClient.sharedInstance.getImageCache()[product.id] {
                 productImage.image = image
             }

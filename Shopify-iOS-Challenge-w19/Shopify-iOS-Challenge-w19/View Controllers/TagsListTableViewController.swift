@@ -15,7 +15,6 @@ class TagsListTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.navigationController?.viewControllers.first?.title = "Product Tags"
         self.title = "Product Tags"
     }
     
@@ -28,17 +27,12 @@ class TagsListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         clearsSelectionOnViewWillAppear = true
-        ShopifyClient.sharedInstance.getJSONDataFromShopify() { products in
+        ShopifyClient.sharedInstance.getDataFromShopify() { products in
             self.tagsList = Array(products.keys)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,12 +43,10 @@ class TagsListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return tagsList.count
     }
     
@@ -68,7 +60,7 @@ class TagsListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath), let tag = cell.textLabel?.text else {return}
         let nextViewController = ProductsListTableViewController.getInstance()
-        nextViewController.setProducts(ShopifyClient.sharedInstance.getProductsCache()[tag]!)
+        nextViewController.setProducts(ShopifyClient.sharedInstance.getProducts(for: tag))
         nextViewController.setTag(to: tag)
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }

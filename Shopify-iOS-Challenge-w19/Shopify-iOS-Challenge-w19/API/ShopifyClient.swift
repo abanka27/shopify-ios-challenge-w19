@@ -9,23 +9,27 @@
 import Foundation
 import UIKit
 
-public typealias ProductDictionary = [String: [Product]]
-
 public class ShopifyClient {
     public static let sharedInstance = ShopifyClient()
-    private var productsCache = ProductDictionary()
+    private var tagsCache = [String: [Int]]()
+    private var productsCache = [Int: Product]()
     private var imageCache = [Int: UIImage]()
     private var initialData: Bool = true
     
-    public func getProductsCache() -> ProductDictionary {
-        return productsCache
+    public func getProducts(for tag: String) -> [Product] {
+        var productsArray = [Product]()
+        if let productIds = self.tagsCache[tag] {
+            productIds.forEach({productsArray.append(productsCache[$0]!)})
+        }
+        return productsArray
     }
     
     public func getImageCache() -> [Int: UIImage] {
         return imageCache
     }
-    public func getJSONDataFromShopify(onCompletion completion: @escaping (ProductDictionary)->()) {
-        guard productsCache.isEmpty || initialData else { return completion(productsCache) }
+    
+    public func getDataFromShopify(onCompletion completion: @escaping ([String: [Int]])->()) {
+        guard tagsCache.isEmpty || initialData else { return completion(tagsCache) }
         let url = URL(string: "https://shopicruit.myshopify.com/admin/products.json?page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6")!
         let session = URLSession(configuration: .ephemeral)
         let task = session.dataTask(with: url) {(data, response, error) in
@@ -33,15 +37,26 @@ public class ShopifyClient {
             do {
                 let products = try JSONDecoder().decode(Products.self, from: data)
                 products.products.forEach(){ (product) in
-                    self.downloadImage(from: URL(string: product.image.src)!, id: product.id)
+                    // Append _small to image name to obtain a 100x100px image for memory management
+                    var imageURL = URL(string: product.image.src)!
+                    var newLastComponent = imageURL.lastPathComponent.split(separator: ".")[0].description
+                    newLastComponent.append(contentsOf: "_small.png")
+                    imageURL.deleteLastPathComponent()
+                    imageURL.appendPathComponent(newLastComponent)
+                    print("\(imageURL)")
+                    self.downloadImage(from: imageURL, id: product.id)
+                    // Store product in dictionary with id as key
+                    self.productsCache[product.id] = product
                     product.tags.values.forEach(){ tag in
-                        if self.productsCache[tag] == nil {
-                            self.productsCache[tag] = [Product]()
+                        // Check if tagsCache has been initialized
+                        if self.tagsCache[tag] == nil {
+                            self.tagsCache[tag] = [Int]()
                         }
-                        self.productsCache[tag]?.append(product)
+                        // Append product id to the array stored under the tag key in tagsCache
+                        self.tagsCache[tag]?.append(product.id)
                     }
                 }
-                completion(self.productsCache)
+                completion(self.tagsCache)
             } catch {
                 print("Failed")
                 return
@@ -58,6 +73,7 @@ public class ShopifyClient {
         getImageData(from: url) { (data, response, error) in
             guard let data = data, error == nil else {return}
             DispatchQueue.main.async {
+                // Store UIImage in imageCache
                 self.imageCache[id] = UIImage(data: data)
             }
         }
