@@ -6,44 +6,44 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="116" id="KGk-i7-Jjw" customClass="ProductsListTableViewCell" customModule="Shopify_iOS_Challenge_w19" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="330" height="116"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ProductsListTableViewCell" customModule="Shopify_iOS_Challenge_w19" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="327" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="330" height="115.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="327" height="95.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Hp-sG-ysn">
                         <rect key="frame" x="8" y="8" width="80" height="80"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="AG7-Uc-244"/>
-                            <constraint firstAttribute="height" constant="80" id="aXV-G4-SPW"/>
+                            <constraint firstAttribute="width" secondItem="5Hp-sG-ysn" secondAttribute="height" multiplier="1:1" id="dmq-hR-Ddv"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aerodynamic Concrete Clock" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYA-qP-R1l" userLabel="Product Name">
-                        <rect key="frame" x="96" y="8" width="226" height="43"/>
+                        <rect key="frame" x="96" y="8" width="133" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="THG-2q-JjB"/>
+                            <constraint firstAttribute="height" constant="50" id="THG-2q-JjB"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="246" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lL0-oL-j8K" userLabel="Inventory">
-                        <rect key="frame" x="172" y="59.5" width="27.5" height="18"/>
+                        <rect key="frame" x="172" y="68" width="27.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inventory:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yc7-Pw-HQR" userLabel="Inventory Label">
-                        <rect key="frame" x="96" y="59" width="68" height="18"/>
+                        <rect key="frame" x="96" y="66" width="68" height="21.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -52,15 +52,14 @@
                 <constraints>
                     <constraint firstItem="lL0-oL-j8K" firstAttribute="centerY" secondItem="yc7-Pw-HQR" secondAttribute="centerY" id="2qe-iw-Rq0"/>
                     <constraint firstItem="yc7-Pw-HQR" firstAttribute="top" secondItem="aYA-qP-R1l" secondAttribute="bottom" constant="8" id="6sA-A5-EsM"/>
-                    <constraint firstItem="yc7-Pw-HQR" firstAttribute="leading" secondItem="5Hp-sG-ysn" secondAttribute="trailing" constant="8" id="Dh4-fl-ZiO"/>
-                    <constraint firstAttribute="trailing" secondItem="aYA-qP-R1l" secondAttribute="trailing" constant="8" id="Hbj-Mu-ggt"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aYA-qP-R1l" secondAttribute="trailing" constant="8" id="Hbj-Mu-ggt"/>
                     <constraint firstItem="aYA-qP-R1l" firstAttribute="leading" secondItem="5Hp-sG-ysn" secondAttribute="trailing" constant="8" id="N1J-fF-6CP"/>
-                    <constraint firstItem="yc7-Pw-HQR" firstAttribute="leading" secondItem="5Hp-sG-ysn" secondAttribute="trailing" constant="8" id="PDH-11-MBz"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="yc7-Pw-HQR" secondAttribute="bottom" constant="8" id="PE3-mr-9U5"/>
+                    <constraint firstAttribute="bottom" secondItem="yc7-Pw-HQR" secondAttribute="bottom" constant="8" id="PE3-mr-9U5"/>
                     <constraint firstItem="aYA-qP-R1l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="geb-gc-qRp"/>
                     <constraint firstItem="5Hp-sG-ysn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="nO9-zX-9Te"/>
-                    <constraint firstItem="5Hp-sG-ysn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="nRD-dV-LIM"/>
+                    <constraint firstItem="5Hp-sG-ysn" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="nRD-dV-LIM"/>
                     <constraint firstItem="lL0-oL-j8K" firstAttribute="leading" secondItem="yc7-Pw-HQR" secondAttribute="trailing" constant="8" id="wI6-hj-2Wl"/>
+                    <constraint firstItem="yc7-Pw-HQR" firstAttribute="leading" secondItem="aYA-qP-R1l" secondAttribute="leading" id="zOF-aV-lv4"/>
                     <constraint firstAttribute="bottom" secondItem="5Hp-sG-ysn" secondAttribute="bottom" constant="8" id="zON-cV-viU"/>
                 </constraints>
             </tableViewCellContentView>
@@ -70,7 +69,7 @@
                 <outlet property="productImage" destination="5Hp-sG-ysn" id="LxD-Bc-lqn"/>
                 <outlet property="title" destination="aYA-qP-R1l" id="dJN-lv-Nn3"/>
             </connections>
-            <point key="canvasLocation" x="15" y="132"/>
+            <point key="canvasLocation" x="13.5" y="122"/>
         </tableViewCell>
     </objects>
 </document>
